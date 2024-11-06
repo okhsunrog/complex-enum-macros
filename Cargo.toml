@@ -1,6 +1,6 @@
 [package]
 name = "complex-enum-macros"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Danila Gornushko <me@okhsunrog.dev>"]
 description = "Convert enums with non-unit variants to privitives"
@@ -9,6 +9,7 @@ repository = "https://github.com/okhsunrog/complex-enum-macros"
 readme = "README.md"
 keywords = ["enum", "macros", "proc-macros"]
 categories = ["development-tools::procedural-macro-helpers"]
+documentation = "https://docs.rs/complex-enum-macros/"
 
 [lib]
 proc-macro = true
