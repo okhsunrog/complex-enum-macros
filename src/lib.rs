@@ -1,3 +1,30 @@
+//! A derive macro for automatically implementing code conversion for enums
+//!
+//! This crate provides a `ToCode` derive macro that generates a `to_code()` method
+//! for converting enum variants to `Option<u8>` values.
+//!
+//! # Example
+//! ```
+//! use complex_enum_macros::ToCode;
+//!
+//! #[derive(ToCode)]
+//! #[repr(u8)]
+//! enum Command {
+//!     Start = 0x01,
+//!     SetConfig { value: Option<u32> } = 0x02,
+//!     SendData(String) = 0x03,
+//!     Stop = 0x04,
+//!     Unknown,
+//! }
+//!
+//! let cmd = Command::SetConfig { value: Some(42) };
+//! assert_eq!(cmd.to_code(), Some(0x02));
+//! let cmd = Command::SendData("Hello, world!".to_string());
+//! assert_eq!(cmd.to_code(), Some(0x03));
+//! let cmd = Command::Unknown;
+//! assert_eq!(cmd.to_code(), None);
+//! ```
+
 use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Data, DeriveInput, Fields};
