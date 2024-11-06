@@ -45,9 +45,9 @@ fn test_no_code_variants() {
     let variant = TestEnum::NoCodeStruct { value: 42 };
     assert_eq!(variant.to_code(), None);
 }
-
 #[derive(ToCode)]
 #[repr(u8)]
+#[allow(dead_code)]
 enum I2cCommand {
     Uptime = 0x00,
     AdcStats = 0x01,
@@ -56,7 +56,6 @@ enum I2cCommand {
     Reset = 0x06,
     Scan,
 }
-
 #[test]
 fn test_i2c_command() {
     assert_eq!(I2cCommand::Uptime.to_code(), Some(0x00));
