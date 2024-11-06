@@ -14,7 +14,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-complex-enum-macros = { git = "https://github.com/okhsunrog/complex-enum-macros" }
+complex-enum-macros = "0.1"
 ```
 
 ## Usage
