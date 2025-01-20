@@ -1,9 +1,9 @@
 [package]
 name = "complex-enum-macros"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 authors = ["Danila Gornushko <me@okhsunrog.dev>"]
-description = "Convert enums with non-unit variants to privitives"
+description = "Convert enums with non-unit variants to privitives and back"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/okhsunrog/complex-enum-macros"
 readme = "README.md"

@@ -1,6 +1,6 @@
-use complex_enum_macros::ToCode;
+use complex_enum_macros::{ToCode, TryFromCode};
 
-#[derive(ToCode, Debug, PartialEq)]
+#[derive(ToCode, Debug, PartialEq, TryFromCode)]
 #[repr(u8)]
 enum TestEnum {
     // Unit variant with discriminant
@@ -70,4 +70,36 @@ fn test_i2c_command() {
     );
     assert_eq!(I2cCommand::Reset.to_code(), Some(0x06));
     assert_eq!(I2cCommand::Scan.to_code(), None);
+}
+
+#[test]
+fn test_try_from_unit_variant() {
+    let variant = TestEnum::try_from_code(0x01);
+    assert_eq!(variant, Some(TestEnum::Unit));
+}
+
+#[test]
+fn test_try_from_struct_variant() {
+    let variant = TestEnum::try_from_code(0x02);
+    assert_eq!(variant, Some(TestEnum::Struct { value: None }));
+}
+
+#[test]
+fn test_try_from_tuple_variant() {
+    let variant = TestEnum::try_from_code(0x03);
+    assert_eq!(variant, Some(TestEnum::Tuple(String::default())));
+}
+
+#[test]
+fn test_try_from_invalid_code() {
+    let variant = TestEnum::try_from_code(0xFF);
+    assert_eq!(variant, None);
+}
+
+#[test]
+fn test_full_conversion_cycle() {
+    let original = TestEnum::Struct { value: None };
+    let code = original.to_code().unwrap();
+    let converted = TestEnum::try_from_code(code);
+    assert_eq!(converted, Some(original));
 }
