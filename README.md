@@ -4,8 +4,10 @@ A Rust procedural macro for deriving code/discriminant conversion methods for en
 
 ## Features
 - Convert enum variants to their discriminant values
+- Convert u8 codes back to enum variants with `try_from_code()`
 - Support for unit variants, struct-like variants, and tuple variants
 - Works with explicit discriminants
+- Default initialization of variant fields during code conversion
 - Zero dependencies in the generated code
 
 ## Installation
@@ -14,15 +16,15 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-complex-enum-macros = "0.1"
+complex-enum-macros = "0.2"
 ```
 
 ## Usage
 
-```
-use complex_enum_macros::ToCode;
+```rust
+use complex_enum_macros::{ToCode, TryFromCode};
 
-#[derive(ToCode)]
+#[derive(ToCode, TryFromCode, Debug, PartialEq)]
 #[repr(u8)]
 pub enum I2cCommand {
     Uptime = 0x00,
@@ -36,13 +38,21 @@ pub enum I2cCommand {
 }
 
 fn main() {
+    // Convert enum to code
     let cmd = I2cCommand::Uptime;
     assert_eq!(cmd.to_code(), Some(0x00));
 
     let cmd = I2cCommand::SampleRate { rate: Some(1000) };
     assert_eq!(cmd.to_code(), Some(0x02));
 
-    // Variants without explicit discriminants return None
+    // Create enum from code
+    let cmd = I2cCommand::try_from_code(0x03).unwrap();
+    assert!(matches!(cmd, I2cCommand::GoertThreshold { .. }));
+
+    // Invalid codes return None
+    assert_eq!(I2cCommand::try_from_code(0xFF), None);
+
+    // Variants without explicit discriminants return None for to_code()
     let cmd = I2cCommand::Scan;
     assert_eq!(cmd.to_code(), None);
 }
