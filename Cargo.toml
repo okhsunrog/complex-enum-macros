@@ -1,6 +1,6 @@
 [package]
 name = "complex-enum-macros"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["Danila Gornushko <me@okhsunrog.dev>"]
 description = "Convert enums with non-unit variants to privitives and back"
