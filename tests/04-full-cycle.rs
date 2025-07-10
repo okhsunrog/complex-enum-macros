@@ -2,6 +2,7 @@ use complex_enum_macros::{ToCode, TryFromCode};
 
 #[derive(ToCode, Debug, PartialEq, TryFromCode)]
 #[repr(u8)]
+#[allow(dead_code)]
 enum TestEnum {
     // Unit variant with discriminant
     Unit = 0x01,

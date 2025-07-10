@@ -6,4 +6,3 @@ fn tests() {
     t.pass("tests/03-try-from.rs");
     t.pass("tests/04-full-cycle.rs");
 }
-
