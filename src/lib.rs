@@ -1,3 +1,4 @@
+#![warn(missing_docs)]
 //! A derive macro for automatically implementing code conversion for enums
 //!
 //! This crate provides two derive macros:
@@ -58,6 +59,7 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Data, DeriveInput, Fields};
 
+/// Derives the `ToCode` trait for an enum.
 #[proc_macro_derive(ToCode)]
 pub fn derive_to_code(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
@@ -112,6 +114,7 @@ pub fn derive_to_code(input: TokenStream) -> TokenStream {
     TokenStream::from(expanded)
 }
 
+/// Derives the `TryFromCode` trait for an enum.
 #[proc_macro_derive(TryFromCode)]
 pub fn derive_try_from_code(input: TokenStream) -> TokenStream {
     let input = parse_macro_input!(input as DeriveInput);
