@@ -103,6 +103,7 @@ pub fn derive_to_code(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         impl #name {
+            #[doc = "Converts the enum to its `u8` representation."]
             pub fn to_code(&self) -> Option<u8> {
                 match self {
                     #(#match_arms)*
@@ -156,6 +157,7 @@ pub fn derive_try_from_code(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         impl #name {
+            #[doc = "Tries to convert a `u8` code to an enum variant."]
             pub fn try_from_code(code: u8) -> Option<Self> {
                 match code {
                     #(#match_arms)*
